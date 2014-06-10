@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Clock</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js" type="text/javascript"></script>
+<script src="javascript/jquery.growl.js" type="text/javascript"></script>
+<link href="stylesheets/jquery.growl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="content">
+		<div id="clock">
+			<span id="minute">25</span>:<span id="second">00</span>
+		</div>
+		<div class="center-buttons">
+			<input type="button" class="button" id="pomodoro" value="Start Pomodoro" onclick="pomodoro('p')"> <br />
+		</div>
+		<div class="center-buttons">
+			<input type="button" class="button" id="sbreak" value="Short Break" onclick="pomodoro('sb')">
+			<input type="button" class="button" id="lbreak" value="Long Break" onclick="pomodoro('lb')"> <br/>
+			<input type="button" class="button" id="stop" value="Stop" onclick="clearInterval(timerID)"> 
+			<input type="button" class="button" id="reset" value="Reset" onclick="reset()"> <br />
+		</div>
+		<div class="text-input">
+		<table>
+			<tr>
+				<td><label>Pomodoro time:</label></td>
+				<td><input id="ptime" type="text" value="25" size="3" align="right"></td>
+			</tr>
+			<tr>
+				<td><label>Short break:</label></td>
+				<td><input id="sbtime" type="text" value="5" size="3" align="right"></td>
+			</tr>
+			<tr>
+				<td><label>Long break:</label></td>
+				<td><input id="lbtime" type="text" value="15" size="3" align="right"></td>
+			</tr>
+		</table>
+		</div>
+		<script type="text/javascript" src="pomodoro.js"></script>
+	</div>
+	<audio src="bell.wav" width="1" height="0" id="bell" />
+</body>
+<html>
