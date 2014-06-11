@@ -54,6 +54,9 @@ input.button#pomodoro {
 font-size: 25px;
 margin: 10px;
 }
+input.button#stop {
+width: 80px;
+}
 #lbreak, #sbreak, #stop {
 margin: 5px 0;
 }

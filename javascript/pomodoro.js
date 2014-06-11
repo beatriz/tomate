@@ -2,7 +2,8 @@ var timerID,
  seconds,
  numBreaks,
  nextType,
- notifTitle, notifText
+ notifTitle, notifText,
+ paused
 
 numBreaks = 1;
 function pomodoro(presentType) {
@@ -18,6 +19,7 @@ function pomodoro(presentType) {
 		}
 		notifTitle = "Pomodoro time!";
 		notifText = "Time for a pomodoro!";
+		paused = 0;
 	} else if(presentType == "sb")
 	{
 		document.title = "POMODORO - Short break";
@@ -39,14 +41,28 @@ function pomodoro(presentType) {
 	document.getElementById('minute').style.color = color;
 	document.getElementById('second').style.color = color;
 	seconds = pomodoroMinutes * 60;
-	timer(seconds);
-	timerID = setInterval('timer(seconds)', 1000);
+	runTimer(seconds);
 	notify(presentType, notifTitle, notifText);
 }
 
-
-function stopClock() {
-	clearInterval(timerID);		
+function runTimer(seconds) {
+	timer(seconds);
+	timerID = setInterval('timer(seconds)', 1000);
+}
+function pause() {
+	if(paused)
+	{
+		paused = 0;
+		runTimer(seconds);
+		text = 'Pause';
+		
+	}
+	else {
+		paused = 1;
+		clearInterval(timerID);
+		text = 'Continue';
+	}
+	document.getElementById('stop').value = text;
 	
 }
 
@@ -73,9 +89,9 @@ function timer(){
 
 function reset(){
 	clearInterval(timerID);
-	document.getElementById('ptime').value = 15;
+	document.getElementById('ptime').value = 25;
 	document.getElementById('sbtime').value = 5;
-	document.getElementById('lbtime').value = 25;
+	document.getElementById('lbtime').value = 15;
 	document.getElementById('minute').innerHTML = 25;
 	document.getElementById('second').innerHTML = '00';
 }
@@ -90,7 +106,7 @@ function notify(presentType, notifTitle, notifText) {
 		$.growl.error({title: notifTitle, message: notifText});
 	}
 	else {
-		$.growl.notice	({title: notifTitle, message: notifText});
+		$.growl.notice({title: notifTitle, message: notifText});
 	}
 //$.growl({ title: "Growl", message: "The kitten is awake!" });
 }
