@@ -4,7 +4,7 @@
   "description": "A pomodoro timer.",
   "main": "index.html",
   "scripts": {
-    "test": "eslint ./"
+    "test": "eslint ./js/"
   },
   "repository": {
     "type": "git",
