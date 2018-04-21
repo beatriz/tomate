@@ -2,14 +2,19 @@ language: node_js
 node_js:
   - "node"
 
-before_deploy:
+cache:
+  directories:
+  - node_modules
+
+script:
+  - npm test
   - npm run build
 
 deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
-  local_dir: dist
+#  local_dir: dist readd this when react
   keep-history: true
   on:
     branch: master
