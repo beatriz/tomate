@@ -1,30 +1,29 @@
 /* global $ */
-var timerID;
-var seconds;
-var nextType;
-var notifTitle;
-var notifText;
-var paused;
+let timerID;
+let seconds;
+let nextType;
+let notifTitle;
+let notifText;
+let paused;
 
-var numBreaks = 1;
+let numBreaks = 1;
 
-function runTimer(s) {
-  timer(s); // eslint-disable-line
-  timerID = setInterval('timer(s)', 1000); // eslint-disable-line
+function runTimer() {
+  timer(seconds); // eslint-disable-line
+  timerID = setInterval(() => timer(seconds), 1000); // eslint-disable-line
 }
 
 function notify(presentType, title, text) {
   if (presentType === 'p') {
-    $.growl.error({ title: title, message: text });
+    $.growl.error({ title, message: text });
   } else {
-    $.growl.notice({ title: title, message: text });
+    $.growl.notice({ title, message: text });
   }
-// $.growl({ title: "Growl", message: "The kitten is awake!" });
 }
 
 function pomodoro(presentType) {
-  var pomodoroMinutes;
-  var color;
+  let pomodoroMinutes;
+  let color;
   clearInterval(timerID);
   if (presentType === 'p') {
     pomodoroMinutes = document.getElementById('ptime').value;
@@ -62,8 +61,8 @@ function pomodoro(presentType) {
   notify(presentType, notifTitle, notifText);
 }
 
-function pause() { // eslint-disable-line
-  var text;
+function pause() {
+  let text;
   if (paused) {
     paused = 0;
     runTimer(seconds);
@@ -77,19 +76,19 @@ function pause() { // eslint-disable-line
 }
 
 function playSound(soundObj) {
-  var sound = document.getElementById(soundObj);
+  const sound = document.getElementById(soundObj);
   sound.play();
 }
 
 function timer() {
-  var remainingSeconds;
-  var minutes = Math.round((seconds - 30) / 60);
+  let remainingSeconds;
+  let minutes = Math.round((seconds - 30) / 60);
   if (minutes < 10) {
-    minutes = '0' + minutes;
+    minutes = `0${minutes}`;
   }
   remainingSeconds = seconds % 60;
   if (remainingSeconds < 10) {
-    remainingSeconds = '0' + remainingSeconds;
+    remainingSeconds = `0${remainingSeconds}`;
   }
   document.getElementById('minute').innerHTML = minutes;
   document.getElementById('second').innerHTML = remainingSeconds;
@@ -102,7 +101,7 @@ function timer() {
   }
 }
 
-function reset() { // eslint-disable-line
+function reset() {
   clearInterval(timerID);
   document.getElementById('ptime').value = 25;
   document.getElementById('sbtime').value = 5;
@@ -110,3 +109,11 @@ function reset() { // eslint-disable-line
   document.getElementById('minute').innerHTML = 25;
   document.getElementById('second').innerHTML = '00';
 }
+
+document.addEventListener('DOMContentLoaded', function () { // eslint-disable-line
+  document.getElementById('pomodoro').onclick = function p() { pomodoro('p'); };
+  document.getElementById('sbreak').onclick = function sb() { pomodoro('sb'); };
+  document.getElementById('lbreak').onclick = function lb() { pomodoro('lb'); };
+  document.getElementById('stop').onclick = pause;
+  document.getElementById('reset').onclick = reset;
+});
