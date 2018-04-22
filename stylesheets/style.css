@@ -72,5 +72,16 @@ input[type=text]{
 text-align:center;
 }
 
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	font-size: 10px;
+}
 
-
+.footer a {
+	color: black;
+	text-decoration: none;
+}

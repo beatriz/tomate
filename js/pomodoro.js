@@ -1,4 +1,3 @@
-/* global $ */
 let timerID;
 let seconds;
 let nextType;
@@ -14,11 +13,19 @@ function runTimer() {
 }
 
 function notify(presentType, title, text) {
-  if (presentType === 'p') {
-    $.growl.error({ title, message: text });
-  } else {
-    $.growl.notice({ title, message: text });
+  if (Notification.permission === 'default') {
+    Notification.requestPermission();
   }
+
+  if (Notification.permission === 'granted') {
+    const notif = new Notification(title, {
+      text,
+      icon: '../img/tomato.png',
+    });
+    return notif;
+  }
+
+  return 0;
 }
 
 function pomodoro(presentType) {
@@ -111,6 +118,12 @@ function reset() {
 }
 
 document.addEventListener('DOMContentLoaded', function () { // eslint-disable-line
+  if (!Notification) {
+    console.log('Notifications not available');
+  } else if (Notification.permission !== 'granted') {
+    Notification.requestPermission();
+  }
+
   document.getElementById('pomodoro').onclick = function p() { pomodoro('p'); };
   document.getElementById('sbreak').onclick = function sb() { pomodoro('sb'); };
   document.getElementById('lbreak').onclick = function lb() { pomodoro('lb'); };
