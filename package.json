@@ -4,7 +4,8 @@
   "description": "A pomodoro timer.",
   "main": "index.html",
   "scripts": {
-    "test": "eslint ./js/",
+    "lint": "eslint ./js/",
+    "lint-strict": "eslint ./js/ --max-warnings 0",
     "dev": "webpack-dev-server --mode development ./js/pomodoro.js --open",
     "build": "webpack --mode production ./js/pomodoro.js"
   },
