@@ -9,6 +9,9 @@
     "dev": "webpack-dev-server --mode development ./js/pomodoro.js --open",
     "build": "webpack --mode production ./js/pomodoro.js"
   },
+  "engines": {
+    "npm": "NO LONGER USED - Please use yarn instead."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mbeatrizmagalhaes/tomate.git"
